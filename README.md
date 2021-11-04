@@ -1,45 +1,123 @@
-# Create-react-app with AWS Amplify Auth 
+# Candy-Machine-Mint
 
-This auth starter implements withAuthenticator HOC to provide a basic authentication flow for signing up signing in users as well as protected client side routing using AWS Amplify. Auth features: User sign up, User sign in, Multi-factor Authentication, User sign-out.
+The Candy-Machine-Mint project is designed to let users fork, customize, and deploy their own candy machine mint app to a custom domain, ultra fast.
 
-[View Demo](https://master.d2ka7y7551sk8n.amplifyapp.com/)
+A candy machine is an on-chain Solana program (or smart contract) for managing fair mint. Fair mints:
+* Start and finish at the same time for everyone.
+* Won't accept your funds if they're out of NFTs to sell.
 
-![Amplify Auth](src/images/auth.gif)
+The Candy-Machine-Mint project is meant to be as simple and usable as possible, accessible to everyone from long-time crypto devs to junior React devs with a vague interest in NFTs. Our goal is to empower users to create their own front ends to display, sell, and manage their NFTs as simply as possible by just updating a few styled components and following a well-documented process for setup and shipping.
 
-## Deploy with the AWS Amplify Console
+## Getting Set Up
 
-The AWS Amplify Console provides hosting for fullstack serverless web apps. [Learn more](https://console.amplify.aws). Deploy this app to your AWS account with a single click:
+### Prerequisites
 
-[![amplifybutton](https://oneclick.amplifyapp.com/button.svg)](https://console.aws.amazon.com/amplify/home#/deploy?repo=https://github.com/aws-samples/create-react-app-auth-amplify)
+* Ensure you have recent versions of both `node` and `yarn` installed.
 
-The Amplify Console will fork this repo in your GitHub account, and then build and deploy your backend and frontend in a single workflow. Your app will be available at `https://master.appid.amplifyapp.com`.
+* Follow the instructions [here](https://docs.solana.com/cli/install-solana-cli-tools) to install the Solana Command Line Toolkit.
 
-## Run locally with the Amplify CLI
+* Follow the instructions [here](https://hackmd.io/@levicook/HJcDneEWF) to install the Metaplex Command Line Utility.
+  * Installing the Command Line Package is currently an advanced task that will be simplified eventually.
 
-1. Clone the repo that was just forked in your account
+### Installation
 
-  ```
-  git clone git@github.com:<username>/create-react-app-auth-amplify.git
+1. Fork the project, then clone down. Example:
+```
+git clone git@github.com:exiled-apes/candy-machine-mint.git
+```
 
-  cd create-react-app-auth-amplify && npm install
-  ```
+2. Build the project. Example:
+```
+cd candy-machine-mint
+yarn install
+yarn build
+```
 
-2. Import the backend environment deployed by the Amplify Console to your repo (the `amplify/team-provider.json` file contains information on all backend environments in your AWS account). The GIF below shows how you to copy the `amplify env import` command from the Amplify Console. 
+3. Define your environment variables using the instructions below, and start up the server with `npm start`.
 
-<img src="https://github.com/aws-samples/create-react-app-auth-amplify/blob/master/src/images/import-backend.gif" width="800"/>
+#### Environment Variables
 
-3. Paste this command into your terminal at the root of your repo. You should see the `amplify/team-provider.json` updated with a backend named `amplify`.
+To run the project, first rename the `.env.example` file at the root directory to `.env` and update the following variables:
 
-  ```
-  amplify pull
-  ```
+```
+REACT_APP_CANDY_MACHINE_CONFIG=__PLACEHOLDER__
+```
 
-![img](src/images/amplify-pull.mov)
+This is a Solana account address. You can get the value for this from the `.cache/temp` file. This file is created when you run the `metaplex upload` command in terminal.
 
-4. Run locally
+```
+REACT_APP_CANDY_MACHINE_ID=__PLACEHOLDER__
+```
 
-  ```
-  npm start
-  ```
+Same as above; this is a Solana account address. You can get the value for this from the `./cache/temp` file. This file is created when you run the `metaplex upload` command in terminal.
 
-Checkout Nader Dabit's [Complete Guide to User Authentication](https://dev.to/dabit3/the-complete-guide-to-user-authentication-with-the-amplify-framework-2inh).
+```
+REACT_APP_TREASURY_ADDRESS=__PLACEHOLDER__
+```
+
+This the Solana address that receives the funds gathered during the minting process. More docs coming as we can test this.
+
+```
+REACT_APP_CANDY_START_DATE=__PLACEHOLDER__
+```
+
+This is a unix time stamp that configures when your mint will be open.
+
+```
+REACT_APP_SOLANA_NETWORK=devnet
+```
+
+This identifies the Solana network you want to connect to. Options are `devnet`, `testnet`, and `mainnet`.
+
+```
+REACT_APP_SOLANA_RPC_HOST=https://explorer-api.devnet.solana.com
+```
+
+This identifies the RPC server your web app will access the Solana network through.
+
+# Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `yarn start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `yarn test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `yarn eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
