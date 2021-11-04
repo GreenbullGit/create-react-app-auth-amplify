@@ -37,10 +37,14 @@ export interface HomeProps {
 }
 
 const Home = (props: HomeProps) => {
+  const whitelistedAddresses = [
+    "9xUJ2aMRUJBR4EcPFJtDvBeKnvShuYqc3aJyR5Gw9bq9", "11111111111111122232dsdad"
+  ]
   const [balance, setBalance] = useState<number>();
   const [isActive, setIsActive] = useState(false); // true when countdown completes
   const [isSoldOut, setIsSoldOut] = useState(false); // true when items remaining is zero
   const [isMinting, setIsMinting] = useState(false); // true when user got to press MINT
+  const [isWhitelisted, setIsWhitelisted] = useState(false); // true when user is whitelisted
 
   const [itemsAvailable, setItemsAvailable] = useState(0);
   const [itemsRedeemed, setItemsRedeemed] = useState(0);
@@ -155,6 +159,7 @@ const Home = (props: HomeProps) => {
       if (wallet) {
         const balance = await props.connection.getBalance(wallet.publicKey);
         setBalance(balance / LAMPORTS_PER_SOL);
+        setIsWhitelisted(whitelistedAddresses.includes(wallet.publicKey.toBase58()))
       }
     })();
   }, [wallet, props.connection]);
@@ -196,6 +201,41 @@ const Home = (props: HomeProps) => {
               ) : (
                 "MINT"
               )
+            ) : (
+              <Countdown
+                date={startDate}
+                onMount={({ completed }) => completed && setIsActive(true)}
+                onComplete={() => setIsActive(true)}
+                renderer={renderCounter}
+              />
+            )}
+          </MintButton>
+        )}
+      </MintContainer>
+
+      ----------------------------- Whitelist |
+                                              v
+      <MintContainer>
+        {!wallet ? (
+          <ConnectButton>Connect Wallet</ConnectButton>
+        ) : (
+          <MintButton
+            disabled={isSoldOut || isMinting || !isActive || !isWhitelisted}
+            onClick={onMint}
+            variant="contained"
+          >
+            {isSoldOut ? (
+              "SOLD OUT"
+            ) : isWhitelisted ? (
+                  isActive ? (
+                      isMinting ? (
+                        <CircularProgress />
+                      )
+                  : (
+                    "MINT"
+                    )
+                  )
+                : ("YOU ARE NOT WHITELISTED")
             ) : (
               <Countdown
                 date={startDate}
