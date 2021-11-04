@@ -1,0 +1,19 @@
+{
+    "nfttest": {
+        "awscloudformation": {
+            "AuthRoleName": "authcra-20211104172227-authRole",
+            "UnauthRoleArn": "arn:aws:iam::948640840100:role/authcra-20211104172227-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::948640840100:role/authcra-20211104172227-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "authcra-20211104172227-deployment",
+            "UnauthRoleName": "authcra-20211104172227-unauthRole",
+            "StackName": "authcra-20211104172227",
+            "StackId": "arn:aws:cloudformation:eu-west-1:948640840100:stack/authcra-20211104172227/67d985a0-3d8b-11ec-a89e-02ef5087e469"
+        },
+        "categories": {
+            "auth": {
+                "cognitocf0c6096": {}
+            }
+        }
+    }
+}
