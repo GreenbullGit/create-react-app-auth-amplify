@@ -235,15 +235,15 @@ const Home = (props: HomeProps) => {
                     "MINT"
                     )
                   )
-                : ("YOU ARE NOT WHITELISTED")
-            ) : (
-              <Countdown
-                date={startDate}
-                onMount={({ completed }) => completed && setIsActive(true)}
-                onComplete={() => setIsActive(true)}
-                renderer={renderCounter}
-              />
-            )}
+                  : (
+                <Countdown
+                  date={startDate}
+                  onMount={({ completed }) => completed && setIsActive(true)}
+                  onComplete={() => setIsActive(true)}
+                  renderer={renderCounter}
+                />
+                )
+              ) : ("YOU ARE NOT WHITELISTED")}
           </MintButton>
         )}
       </MintContainer>
